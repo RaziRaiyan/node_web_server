@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 var app = express();
 
 hbs.registerPartials(__dirname+'/views/partials');
@@ -19,13 +21,6 @@ app.use((req,res,next) => {
         if (err) throw err;
     });
     console.log('Leaving first middleWare');
-    next();
-});
-
-app.use((req,res,next) => {
-    console.log('Entered second middleware');
-    res.render('maintanance.hbs');
-    console.log('Leaving second middleware');
     next();
 });
 
@@ -53,6 +48,13 @@ app.get('/about',(req,res) => {
     });
 });
 
-app.listen(process.env.PORT || 3000, () =>{
-    console.log(`Server is up at port `);
+app.get('/project',(req,res) => {
+    console.log('Entered get request for project page');
+    res.render('project.hbs',{
+        pageTitle: 'Project Page',
+    })
+})
+
+app.listen( port,() =>{
+    console.log(`Server is up at port ${port}`);
 });
