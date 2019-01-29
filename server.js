@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port =  process.env.PORT;
+
 var app = express();
 
 hbs.registerPartials(__dirname+'/views/partials');
